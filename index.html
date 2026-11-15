@@ -10,28 +10,19 @@
   <style>
     * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
     body { margin: 0; background: #064e3b; color: #ffffff; text-align: center; }
-    header { background: #1e3a8a; padding: 18px; font-size: 22px; font-weight: bold; position: sticky; top: 0; z-index: 10; box-shadow: 0 2px 8px rgba(0,0,0,0.35); }
+    header { background: #022c22; padding: 18px; font-size: 22px; font-weight: bold; letter-spacing: 0.5px; position: sticky; top: 0; z-index: 10; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
     .container { padding: 20px; max-width: 500px; margin: auto; }
     .screen { display: none; }
     .screen.active { display: block; }
-    .btn { display: block; width: 100%; padding: 16px; margin: 12px 0; font-size: 18px; font-weight: bold; color: #064e3b; background: #fef08a; border: none; border-radius: 14px; cursor: pointer; text-decoration: none; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }
+    .btn { display: block; width: 100%; padding: 16px; margin: 12px 0; font-size: 18px; font-weight: bold; color: #064e3b; background: #fef08a; border: none; border-radius: 14px; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }
     .btn:active { transform: scale(0.98); }
-    .btn-main { background: #1d4ed8; color: #ffffff; margin-top: 20px; }
+    .btn-back { background: #ffffff; color: #064e3b; margin-top: 20px; }
     .btn-tasbih { height: 160px; font-size: 24px; background: #34d399; color: #022c22; border-radius: 20px; }
-    .card { background: #065f46; padding: 16px; border-radius: 14px; margin: 12px 0; text-align: left; line-height: 1.6; }
-    .dua-item { padding: 12px 0; border-bottom: 1px solid #047857; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
-    .dua-item:last-child { border-bottom: none; }
-    .dua-num { font-weight: bold; color: #fef08a; font-size: 18px; min-width: 28px; }
-    .arabic { font-size: 22px; text-align: right; direction: rtl; color: #ffffff; flex: 1; }
-    .coming-soon { font-weight: bold; font-style: italic; font-size: 17px; color: #fef08a; margin: 18px 0 8px; }
+    .card { background: #065f46; padding: 18px; border-radius: 14px; margin: 14px 0; text-align: left; line-height: 1.6; }
+    .arabic { font-size: 24px; text-align: right; direction: rtl; margin-bottom: 10px; color: #fef08a; }
     .count { font-size: 72px; font-weight: bold; margin: 20px 0; color: #fef08a; }
     .prayer-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #047857; font-size: 18px; }
     .prayer-row:last-child { border-bottom: none; }
-    .compass-wrap { position: relative; width: 220px; height: 220px; margin: 20px auto; border-radius: 50%; border: 6px solid #fef08a; background: #022c22; display: flex; align-items: center; justify-content: center; }
-    .needle { position: absolute; width: 12px; height: 170px; transition: transform 0.15s ease-out; }
-    .needle-top { width: 0; height: 0; border-left: 14px solid transparent; border-right: 14px solid transparent; border-bottom: 85px solid #34d399; margin-left: -8px; }
-    .needle-bottom { width: 0; height: 0; border-left: 14px solid transparent; border-right: 14px solid transparent; border-top: 85px solid #ef4444; margin-left: -8px; }
-    .kaaba-badge { position: absolute; top: -18px; background: #fef08a; color: #022c22; font-weight: bold; padding: 4px 10px; border-radius: 12px; font-size: 13px; }
   </style>
 </head>
 <body>
@@ -39,65 +30,56 @@
 <header id="appTitle">🌙 Ibada App</header>
 
 <div class="container">
+  <!-- HOME SCREEN -->
   <div id="home" class="screen active">
-    <p style="opacity:0.9; margin-bottom:18px;">Assalamu Alaikum! Choose an Ibada:</p>
+    <p style="opacity:0.9; margin-bottom:20px;">Assalamu Alaikum! Choose an Ibada:</p>
     <button class="btn" onclick="openScreen('morning', '🌅 Morning Prayers')">🌅 Morning Prayers</button>
     <button class="btn" onclick="openScreen('tasbih', '📿 Tasbih Counter')">📿 Tasbih Counter</button>
     <button class="btn" onclick="openScreen('prayers', '🕌 Prayer Times')">🕌 Prayer Times</button>
     <button class="btn" onclick="openScreen('calendar', '📅 Islamic Calendar')">📅 Islamic Calendar</button>
-    <button class="btn" onclick="openScreen('qibla', '🧭 Qibla Compass')">🧭 Qibla Compass</button>
-    <a class="btn" href="https://quran.com">📖 Quran</a>
+    <a class="btn" href="https://quran.com" target="_blank" style="text-decoration:none;">📖 Read & Listen to Quran</a>
+    <a class="btn" href="https://withgoogle.com" target="_blank" style="text-decoration:none;">🧭 Qibla Compass</a>
   </div>
 
+  <!-- MORNING PRAYERS -->
   <div id="morning" class="screen">
     <div class="card">
-      <div class="dua-item"><span class="dua-num">1.</span><span class="arabic">أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ</span></div>
-      <div class="dua-item"><span class="dua-num">2.</span><span class="arabic">اللَّهُمَّ بِكَ أَصْبَحْنَا</span></div>
-      <div class="dua-item"><span class="dua-num">3.</span><span class="arabic">رَضِيتُ بِاللَّهِ رَبًّا</span></div>
-      <div class="dua-item"><span class="dua-num">4.</span><span class="arabic">بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ</span></div>
-      <div class="dua-item"><span class="dua-num">5.</span><span class="arabic">اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ</span></div>
-      <div class="dua-item"><span class="dua-num">6.</span><span class="arabic">اللَّهُمَّ عَافِنِي فِي بَدَنِي</span></div>
-      <div class="dua-item"><span class="dua-num">7.</span><span class="arabic">اللَّهُمَّ ارْزُقْنِي عِلْمًا نَافِعًا</span></div>
-      <div class="dua-item"><span class="dua-num">8.</span><span class="arabic">اللَّهُمَّ بَارِكْ لِي فِي يَوْمِي</span></div>
-      <div class="dua-item"><span class="dua-num">9.</span><span class="arabic">اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ</span></div>
-      <div class="dua-item"><span class="dua-num">10.</span><span class="arabic">اللَّهُمَّ اهْدِنِي وَسَدِّدْنِي</span></div>
+      <div class="arabic">أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ</div>
+      <strong>Transliteration:</strong> Asbahna wa asbahal-mulku lillah.<br>
+      <strong>Meaning:</strong> We have reached the morning and at this very time all sovereignty belongs to Allah.
     </div>
-    <div class="coming-soon">MORE DUA COMING SOON!</div>
-    <button class="btn btn-main" onclick="openScreen('home', '🌙 Ibada App')">MAIN MENU</button>
+    <div class="card">
+      <div class="arabic">اللَّهُمَّ بِكَ أَصْبَحْنَا وَبِكَ أَمْسَيْنَا</div>
+      <strong>Transliteration:</strong> Allahumma bika asbahna wa bika amsayna.<br>
+      <strong>Meaning:</strong> O Allah, by Your leave we have reached the morning and by Your leave we have reached the evening.
+    </div>
+    <div class="card">
+      <div class="arabic">سُبْحَانَ اللَّهِ وَبِحَمْدِهِ (100x)</div>
+      <strong>Transliteration:</strong> SubhanAllahi wa bihamdihi.<br>
+      <strong>Meaning:</strong> Glory and praise be to Allah.
+    </div>
+    <button class="btn btn-back" onclick="openScreen('home', '🌙 Ibada App')">⬅ Back Home</button>
   </div>
 
+  <!-- TASBIH COUNTER -->
   <div id="tasbih" class="screen">
     <p>Tap the green button for every Dhikr:</p>
     <div class="count" id="tasbihCount">0</div>
     <button class="btn btn-tasbih" onclick="addTasbih()">SubhanAllah (+1)</button>
     <button class="btn" style="background:#fca5a5; color:#7f1d1d;" onclick="resetTasbih()">Reset to 0</button>
-    <button class="btn btn-main" onclick="openScreen('home', '🌙 Ibada App')">MAIN MENU</button>
+    <button class="btn btn-back" onclick="openScreen('home', '🌙 Ibada App')">⬅ Back Home</button>
   </div>
 
-  <div id="qibla" class="screen">
-    <div class="card" style="text-align:center;">
-      <p id="qiblaStatus" style="margin:0 0 10px; color:#fef08a; font-weight:bold;">Qibla Direction: 18° North-Northeast</p>
-      <p style="font-size:14px; opacity:0.9; margin:0;">Hold your phone flat. Point the <strong>green arrow</strong> straight ahead to face the Kaaba.</p>
-      <div class="compass-wrap">
-        <div class="kaaba-badge">🕋 KAABA</div>
-        <div class="needle" id="qiblaNeedle" style="transform: rotate(18deg);">
-          <div class="needle-top"></div>
-          <div class="needle-bottom"></div>
-        </div>
-      </div>
-      <button class="btn" style="background:#34d399; color:#022c22;" onclick="startCompass()">Enable Live Phone Compass</button>
-    </div>
-    <button class="btn btn-main" onclick="openScreen('home', '🌙 Ibada App')">MAIN MENU</button>
-  </div>
-
+  <!-- PRAYER TIMES (LIVE API) -->
   <div id="prayers" class="screen">
     <div class="card">
       <div id="hijriDate" style="color:#fef08a; font-weight:bold; margin-bottom:10px;">Loading date...</div>
       <div id="prayerList">Loading today's prayer times...</div>
     </div>
-    <button class="btn btn-main" onclick="openScreen('home', '🌙 Ibada App')">MAIN MENU</button>
+    <button class="btn btn-back" onclick="openScreen('home', '🌙 Ibada App')">⬅ Back Home</button>
   </div>
 
+  <!-- ISLAMIC CALENDAR & OCCASIONS -->
   <div id="calendar" class="screen">
     <div class="card">
       <h3 style="margin-top:0; color:#fef08a;">Today's Hijri Date</h3>
@@ -114,87 +96,47 @@
       <div class="prayer-row"><span>9 Dhul Hijjah</span><span>Day of Arafah</span></div>
       <div class="prayer-row"><span>10 Dhul Hijjah</span><span>Eid al-Adha</span></div>
     </div>
-    <button class="btn btn-main" onclick="openScreen('home', '🌙 Ibada App')">MAIN MENU</button>
+    <button class="btn btn-back" onclick="openScreen('home', '🌙 Ibada App')">⬅ Back Home</button>
   </div>
 </div>
 
 <script>
   let count = 0;
-  let qiblaAngle = 18.2;
-
   function openScreen(id, title) {
-    document.querySelectorAll('.screen').forEach(function(s) {
-      s.classList.remove('active');
-    });
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById(id).classList.add('active');
     document.getElementById('appTitle').innerText = title;
-    if (id === 'prayers' || id === 'calendar') {
-      loadIslamicData();
-    }
+    if (id === 'prayers' || id === 'calendar') loadIslamicData();
   }
-
   function addTasbih() {
-    count = count + 1;
+    count++;
     document.getElementById('tasbihCount').innerText = count;
   }
-
   function resetTasbih() {
     count = 0;
     document.getElementById('tasbihCount').innerText = count;
   }
-
-  function calcQibla(lat, lon) {
-    const kaabaLat = 21.4225 * Math.PI / 180;
-    const kaabaLon = 39.8262 * Math.PI / 180;
-    const myLat = lat * Math.PI / 180;
-    const myLon = lon * Math.PI / 180;
-    const y = Math.sin(kaabaLon - myLon);
-    const x = Math.cos(myLat) * Math.tan(kaabaLat) - Math.sin(myLat) * Math.cos(kaabaLon - myLon);
-    let brng = Math.atan2(y, x) * 180 / Math.PI;
-    return (brng + 360) % 360;
-  }
-
-  function startCompass() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(pos) {
-        qiblaAngle = calcQibla(pos.coords.latitude, pos.coords.longitude);
-        document.getElementById('qiblaStatus').innerText = "Qibla Direction: " + Math.round(qiblaAngle) + "° from North";
-      });
+  async function loadIslamicData() {
+    try {
+      const res = await fetch('https://aladhan.com');
+      const data = await res.json();
+      const t = data.data.timings;
+      const h = data.data.date.hijri;
+      const dateStr = `${h.day} ${h.month.en} ${h.year} AH`;
+      document.getElementById('hijriDate').innerText = `📅 ${dateStr} (Kampala)`;
+      document.getElementById('calendarToday').innerText = dateStr;
+      document.getElementById('prayerList').innerHTML = `
+        <div class="prayer-row"><span>Fajr</span><strong>${t.Fajr}</strong></div>
+        <div class="prayer-row"><span>Dhuhr</span><strong>${t.Dhuhr}</strong></div>
+        <div class="prayer-row"><span>Asr</span><strong>${t.Asr}</strong></div>
+        <div class="prayer-row"><span>Maghrib</span><strong>${t.Maghrib}</strong></div>
+        <div class="prayer-row"><span>Isha</span><strong>${t.Isha}</strong></div>
+      `;
+    } catch (e) {
+      document.getElementById('prayerList').innerText = "Check internet connection for live times.";
     }
-    if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
-      DeviceOrientationEvent.requestPermission().then(function(state) {
-        if (state === 'granted') {
-          window.addEventListener('deviceorientation', handleOrientation);
-Use code with caution.
-}
-});
-} else {
-window.addEventListener('deviceorientationabsolute', handleOrientation);
-window.addEventListener('deviceorientation', handleOrientation);
-}
-}
-function handleOrientation(e) {
-let heading = e.webkitCompassHeading || (e.alpha ? 360 - e.alpha : 0);
-let rotation = qiblaAngle - heading;
-document.getElementById('qiblaNeedle').style.transform = "rotate(" + rotation + "deg)";
-}
-function loadIslamicData() {
-fetch('aladhan.com')
-.then(function(res) { return res.json(); })
-.then(function(data) {
-const t = data.data.timings;
-const h = data.data.date.hijri;
-const dateStr = h.day + " " + h.month.en + " " + h.year + " AH";
-document.getElementById('hijriDate').innerText = "📅 " + dateStr + " (Kampala)";
-document.getElementById('calendarToday').innerText = dateStr;
-document.getElementById('prayerList').innerHTML =
-'Fajr' + t.Fajr + '' +
-'Dhuhr' + t.Dhuhr + '' +
-'Asr' + t.Asr + '' +
-'Maghrib' + t.Maghrib + '' +
-'Isha' + t.Isha + '';
-})
-.catch(function() {
-document.getElementById('prayerList').innerText = "Check internet connection for live times.";
-});
-}
+  }
+</script>
+
+</body>
+</html>
