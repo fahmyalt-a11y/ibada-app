@@ -27,6 +27,11 @@
     .count { font-size: 72px; font-weight: bold; margin: 20px 0; color: #fef08a; }
     .prayer-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #047857; font-size: 18px; }
     .prayer-row:last-child { border-bottom: none; }
+    .compass-wrap { position: relative; width: 240px; height: 240px; margin: 20px auto; border-radius: 50%; border: 6px solid #fef08a; background: #022c22; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
+    .needle { position: absolute; width: 12px; height: 180px; transition: transform 0.15s ease-out; }
+    .needle-top { width: 0; height: 0; border-left: 14px solid transparent; border-right: 14px solid transparent; border-bottom: 90px solid #34d399; margin-left: -8px; }
+    .needle-bottom { width: 0; height: 0; border-left: 14px solid transparent; border-right: 14px solid transparent; border-top: 90px solid #ef4444; margin-left: -8px; }
+    .kaaba-badge { position: absolute; top: -18px; background: #fef08a; color: #022c22; font-weight: bold; padding: 4px 10px; border-radius: 12px; font-size: 13px; }
   </style>
 </head>
 <body>
@@ -41,8 +46,8 @@
     <button class="btn" onclick="openScreen('tasbih', '📿 Tasbih Counter')">📿 Tasbih Counter</button>
     <button class="btn" onclick="openScreen('prayers', '🕌 Prayer Times')">🕌 Prayer Times</button>
     <button class="btn" onclick="openScreen('calendar', '📅 Islamic Calendar')">📅 Islamic Calendar</button>
+    <button class="btn" onclick="openScreen('qibla', '🧭 Qibla Compass')">🧭 Qibla Compass</button>
     <a class="btn" href="https://quran.com">📖 Quran</a>
-    <a class="btn" href="https://withgoogle.com">🧭 Qibla Compass</a>
   </div>
 
   <!-- MORNING PRAYERS -->
@@ -72,7 +77,24 @@
     <button class="btn btn-main" onclick="openScreen('home', '🌙 Ibada App')">MAIN MENU</button>
   </div>
 
-  <!-- PRAYER TIMES (LIVE API) -->
+  <!-- BUILT-IN QIBLA COMPASS -->
+  <div id="qibla" class="screen">
+    <div class="card" style="text-align:center;">
+      <p id="qiblaStatus" style="margin:0 0 10px; color:#fef08a; font-weight:bold;">Qibla Direction: 18° North-Northeast</p>
+      <p style="font-size:14px; opacity:0.9; margin:0;">Hold your phone flat. Point the <strong>green arrow</strong> straight ahead to face the Kaaba.</p>
+      <div class="compass-wrap">
+        <div class="kaaba-badge">🕋 KAABA</div>
+        <div class="needle" id="qiblaNeedle" style="transform: rotate(18deg);">
+          <div class="needle-top"></div>
+          <div class="needle-bottom"></div>
+        </div>
+      </div>
+      <button class="btn" style="background:#34d399; color:#022c22;" onclick="startCompass()">Enable Live Phone Compass</button>
+    </div>
+    <button class="btn btn-main" onclick="openScreen('home', '🌙 Ibada App')">MAIN MENU</button>
+  </div>
+
+  <!-- PRAYER TIMES -->
   <div id="prayers" class="screen">
     <div class="card">
       <div id="hijriDate" style="color:#fef08a; font-weight:bold; margin-bottom:10px;">Loading date...</div>
@@ -104,41 +126,41 @@
 
 <script>
   let count = 0;
+  let qiblaAngle = 18.2;
+
   function openScreen(id, title) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById(id).classList.add('active');
     document.getElementById('appTitle').innerText = title;
     if (id === 'prayers' || id === 'calendar') loadIslamicData();
   }
+
   function addTasbih() {
     count++;
     document.getElementById('tasbihCount').innerText = count;
   }
+
   function resetTasbih() {
     count = 0;
     document.getElementById('tasbihCount').innerText = count;
   }
-  async function loadIslamicData() {
-    try {
-      const res = await fetch('https://aladhan.com');
-      const data = await res.json();
-      const t = data.data.timings;
-      const h = data.data.date.hijri;
-      const dateStr = `${h.day} ${h.month.en} ${h.year} AH`;
-      document.getElementById('hijriDate').innerText = `📅 ${dateStr} (Kampala)`;
-      document.getElementById('calendarToday').innerText = dateStr;
-      document.getElementById('prayerList').innerHTML = `
-        <div class="prayer-row"><span>Fajr</span><strong>${t.Fajr}</strong></div>
-        <div class="prayer-row"><span>Dhuhr</span><strong>${t.Dhuhr}</strong></div>
-        <div class="prayer-row"><span>Asr</span><strong>${t.Asr}</strong></div>
-        <div class="prayer-row"><span>Maghrib</span><strong>${t.Maghrib}</strong></div>
-        <div class="prayer-row"><span>Isha</span><strong>${t.Isha}</strong></div>
-      `;
-    } catch (e) {
-      document.getElementById('prayerList').innerText = "Check internet connection for live times.";
-    }
-  }
-</script>
 
-</body>
-</html>
+  function calcQibla(lat, lon) {
+    const kaabaLat = 21.4225 * Math.PI / 180;
+    const kaabaLon = 39.8262 * Math.PI / 180;
+    const myLat = lat * Math.PI / 180;
+    const myLon = lon * Math.PI / 180;
+    const y = Math.sin(kaabaLon - myLon);
+    const x = Math.cos(myLat) * Math.tan(kaabaLat) - Math.sin(myLat) * Math.cos(kaabaLon - myLon);
+    let brng = Math.atan2(y, x) * 180 / Math.PI;
+    return (brng + 360) % 360;
+  }
+
+  function startCompass() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(pos => {
+        qiblaAngle = calcQibla(pos.coords.latitude, pos.coords.longitude);
+        document.getElementById('qiblaStatus').innerText = `Qibla Direction: ${Math.round(qiblaAngle)}° from North`;
+      });
+    }
+    if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
