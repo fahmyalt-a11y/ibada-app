@@ -165,5 +165,36 @@
       DeviceOrientationEvent.requestPermission().then(function(state) {
         if (state === 'granted') {
           window.addEventListener('deviceorientation', handleOrientation);
-
-        
+Use code with caution.
+}
+});
+} else {
+window.addEventListener('deviceorientationabsolute', handleOrientation);
+window.addEventListener('deviceorientation', handleOrientation);
+}
+}
+function handleOrientation(e) {
+let heading = e.webkitCompassHeading || (e.alpha ? 360 - e.alpha : 0);
+let rotation = qiblaAngle - heading;
+document.getElementById('qiblaNeedle').style.transform = "rotate(" + rotation + "deg)";
+}
+function loadIslamicData() {
+fetch('aladhan.com')
+.then(function(res) { return res.json(); })
+.then(function(data) {
+const t = data.data.timings;
+const h = data.data.date.hijri;
+const dateStr = h.day + " " + h.month.en + " " + h.year + " AH";
+document.getElementById('hijriDate').innerText = "📅 " + dateStr + " (Kampala)";
+document.getElementById('calendarToday').innerText = dateStr;
+document.getElementById('prayerList').innerHTML =
+'Fajr' + t.Fajr + '' +
+'Dhuhr' + t.Dhuhr + '' +
+'Asr' + t.Asr + '' +
+'Maghrib' + t.Maghrib + '' +
+'Isha' + t.Isha + '';
+})
+.catch(function() {
+document.getElementById('prayerList').innerText = "Check internet connection for live times.";
+});
+}
