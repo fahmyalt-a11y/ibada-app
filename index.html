@@ -10,16 +10,21 @@
   <style>
     * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
     body { margin: 0; background: #064e3b; color: #ffffff; text-align: center; }
-    header { background: #022c22; padding: 18px; font-size: 22px; font-weight: bold; letter-spacing: 0.5px; position: sticky; top: 0; z-index: 10; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+    header { background: #1e3a8a; padding: 18px; font-size: 22px; font-weight: bold; letter-spacing: 0.5px; position: sticky; top: 0; z-index: 10; box-shadow: 0 2px 8px rgba(0,0,0,0.35); }
     .container { padding: 20px; max-width: 500px; margin: auto; }
     .screen { display: none; }
     .screen.active { display: block; }
-    .btn { display: block; width: 100%; padding: 16px; margin: 12px 0; font-size: 18px; font-weight: bold; color: #064e3b; background: #fef08a; border: none; border-radius: 14px; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }
+    .btn { display: block; width: 100%; padding: 16px; margin: 12px 0; font-size: 18px; font-weight: bold; color: #064e3b; background: #fef08a; border: none; border-radius: 14px; cursor: pointer; text-decoration: none; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }
     .btn:active { transform: scale(0.98); }
-    .btn-back { background: #ffffff; color: #064e3b; margin-top: 20px; }
+    .btn-main { background: #1d4ed8; color: #ffffff; margin-top: 20px; }
+    .btn-fahmy { background: #f97316; color: #ffffff; margin-top: 18px; }
     .btn-tasbih { height: 160px; font-size: 24px; background: #34d399; color: #022c22; border-radius: 20px; }
-    .card { background: #065f46; padding: 18px; border-radius: 14px; margin: 14px 0; text-align: left; line-height: 1.6; }
-    .arabic { font-size: 24px; text-align: right; direction: rtl; margin-bottom: 10px; color: #fef08a; }
+    .card { background: #065f46; padding: 16px; border-radius: 14px; margin: 12px 0; text-align: left; line-height: 1.6; }
+    .dua-item { padding: 12px 0; border-bottom: 1px solid #047857; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .dua-item:last-child { border-bottom: none; }
+    .dua-num { font-weight: bold; color: #fef08a; font-size: 18px; min-width: 28px; }
+    .arabic { font-size: 22px; text-align: right; direction: rtl; color: #ffffff; flex: 1; }
+    .coming-soon { font-weight: bold; font-style: italic; font-size: 17px; color: #fef08a; margin: 18px 0 8px; }
     .count { font-size: 72px; font-weight: bold; margin: 20px 0; color: #fef08a; }
     .prayer-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #047857; font-size: 18px; }
     .prayer-row:last-child { border-bottom: none; }
@@ -30,35 +35,34 @@
 <header id="appTitle">🌙 Ibada App</header>
 
 <div class="container">
-  <!-- HOME SCREEN -->
+  <!-- HOME SCREEN (SCREEN 1) -->
   <div id="home" class="screen active">
-    <p style="opacity:0.9; margin-bottom:20px;">Assalamu Alaikum! Choose an Ibada:</p>
+    <p style="opacity:0.9; margin-bottom:18px;">Assalamu Alaikum! Choose an Ibada:</p>
     <button class="btn" onclick="openScreen('morning', '🌅 Morning Prayers')">🌅 Morning Prayers</button>
     <button class="btn" onclick="openScreen('tasbih', '📿 Tasbih Counter')">📿 Tasbih Counter</button>
     <button class="btn" onclick="openScreen('prayers', '🕌 Prayer Times')">🕌 Prayer Times</button>
     <button class="btn" onclick="openScreen('calendar', '📅 Islamic Calendar')">📅 Islamic Calendar</button>
-    <a class="btn" href="https://quran.com" target="_blank" style="text-decoration:none;">📖 Read & Listen to Quran</a>
-    <a class="btn" href="https://withgoogle.com" target="_blank" style="text-decoration:none;">🧭 Qibla Compass</a>
+    <a class="btn" href="https://quran.com" target="_blank">📖 Quran</a>
+    <a class="btn" href="https://qiblafinder.withgoogle.com/intl/en/desktop/finder" target="_blank">🧭 Qibla Compass</a>
+    <a class="btn btn-fahmy" href="https://github.io" target="_blank">🎮 More Website By Fahmy</a>
   </div>
 
-  <!-- MORNING PRAYERS -->
+  <!-- MORNING PRAYERS (YOUR EXACT 10 DUAS!) -->
   <div id="morning" class="screen">
     <div class="card">
-      <div class="arabic">أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ</div>
-      <strong>Transliteration:</strong> Asbahna wa asbahal-mulku lillah.<br>
-      <strong>Meaning:</strong> We have reached the morning and at this very time all sovereignty belongs to Allah.
+      <div class="dua-item"><span class="dua-num">1.</span><span class="arabic">أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ</span></div>
+      <div class="dua-item"><span class="dua-num">2.</span><span class="arabic">اللَّهُمَّ بِكَ أَصْبَحْنَا</span></div>
+      <div class="dua-item"><span class="dua-num">3.</span><span class="arabic">رَضِيتُ بِاللَّهِ رَبًّا</span></div>
+      <div class="dua-item"><span class="dua-num">4.</span><span class="arabic">بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ</span></div>
+      <div class="dua-item"><span class="dua-num">5.</span><span class="arabic">اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ</span></div>
+      <div class="dua-item"><span class="dua-num">6.</span><span class="arabic">اللَّهُمَّ عَافِنِي فِي بَدَنِي</span></div>
+      <div class="dua-item"><span class="dua-num">7.</span><span class="arabic">اللَّهُمَّ ارْزُقْنِي عِلْمًا نَافِعًا</span></div>
+      <div class="dua-item"><span class="dua-num">8.</span><span class="arabic">اللَّهُمَّ بَارِكْ لِي فِي يَوْمِي</span></div>
+      <div class="dua-item"><span class="dua-num">9.</span><span class="arabic">اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ</span></div>
+      <div class="dua-item"><span class="dua-num">10.</span><span class="arabic">اللَّهُمَّ اهْدِنِي وَسَدِّدْنِي</span></div>
     </div>
-    <div class="card">
-      <div class="arabic">اللَّهُمَّ بِكَ أَصْبَحْنَا وَبِكَ أَمْسَيْنَا</div>
-      <strong>Transliteration:</strong> Allahumma bika asbahna wa bika amsayna.<br>
-      <strong>Meaning:</strong> O Allah, by Your leave we have reached the morning and by Your leave we have reached the evening.
-    </div>
-    <div class="card">
-      <div class="arabic">سُبْحَانَ اللَّهِ وَبِحَمْدِهِ (100x)</div>
-      <strong>Transliteration:</strong> SubhanAllahi wa bihamdihi.<br>
-      <strong>Meaning:</strong> Glory and praise be to Allah.
-    </div>
-    <button class="btn btn-back" onclick="openScreen('home', '🌙 Ibada App')">⬅ Back Home</button>
+    <div class="coming-soon">MORE DUA COMING SOON!</div>
+    <button class="btn btn-main" onclick="openScreen('home', '🌙 Ibada App')">MAIN MENU</button>
   </div>
 
   <!-- TASBIH COUNTER -->
@@ -67,7 +71,7 @@
     <div class="count" id="tasbihCount">0</div>
     <button class="btn btn-tasbih" onclick="addTasbih()">SubhanAllah (+1)</button>
     <button class="btn" style="background:#fca5a5; color:#7f1d1d;" onclick="resetTasbih()">Reset to 0</button>
-    <button class="btn btn-back" onclick="openScreen('home', '🌙 Ibada App')">⬅ Back Home</button>
+    <button class="btn btn-main" onclick="openScreen('home', '🌙 Ibada App')">MAIN MENU</button>
   </div>
 
   <!-- PRAYER TIMES (LIVE API) -->
@@ -76,7 +80,7 @@
       <div id="hijriDate" style="color:#fef08a; font-weight:bold; margin-bottom:10px;">Loading date...</div>
       <div id="prayerList">Loading today's prayer times...</div>
     </div>
-    <button class="btn btn-back" onclick="openScreen('home', '🌙 Ibada App')">⬅ Back Home</button>
+    <button class="btn btn-main" onclick="openScreen('home', '🌙 Ibada App')">MAIN MENU</button>
   </div>
 
   <!-- ISLAMIC CALENDAR & OCCASIONS -->
@@ -96,7 +100,7 @@
       <div class="prayer-row"><span>9 Dhul Hijjah</span><span>Day of Arafah</span></div>
       <div class="prayer-row"><span>10 Dhul Hijjah</span><span>Eid al-Adha</span></div>
     </div>
-    <button class="btn btn-back" onclick="openScreen('home', '🌙 Ibada App')">⬅ Back Home</button>
+    <button class="btn btn-main" onclick="openScreen('home', '🌙 Ibada App')">MAIN MENU</button>
   </div>
 </div>
 
